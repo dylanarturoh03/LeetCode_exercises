@@ -3,7 +3,7 @@ class Solution:
         mod isn't just to give you the remainder of n / m,
         but also how n wraps around a cycle of size m... Plus, it is O(1).'''
 
-    def rotate(self, nums: list[int], k: int) -> None:
+    def rotate_l(self, nums: list[int], k: int) -> None:
         '''Rotate array to the left.'''
         aux_array: list[int] = [num for num in nums]
 
@@ -40,4 +40,4 @@ class Solution:
 
 
 sol = Solution()
-sol.rotate_r([1000,2,4,-3], 3)
+sol.rotate_r([1000, 2, 4, -3], 3)
