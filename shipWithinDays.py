@@ -9,6 +9,12 @@ class Solution:
             max_weight = max(max_weight, w)
 
         low = max_weight
+        # Upper bound is decided based on min of:
+        # sum(weights): The capacity needed if we had to do it in a day.
+        # ceil(w.len / d) * max(w) = Upper bound based on worst case.
+        # We calculate the packages per day we would have to load
+        # in order to make it in time, but assume all weights are equal
+        # to the max(w) in order to have the worst possible case.
         high = min(total, ceil(len(weights) / days) * max_weight)
         min_capacity = high
 
