@@ -2,7 +2,7 @@ class Solution:
     def search(self, nums: list[int], target: int) -> int:
         low, high = 0, len(nums) - 1
         # Invariant:
-        # If sorted side does not contain the target, 
+        # If sorted side does not contain the target,
         # then it is present on the other side.
         while low <= high:
             mid: int = (high + low) >> 1
