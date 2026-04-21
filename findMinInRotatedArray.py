@@ -16,9 +16,10 @@ class Solution:
         while low < high:
             mid: int = (high + low) >> 1
 
+            # Case: breaking point is in right side
             if nums[mid] > nums[high]:
                 low = mid + 1
-            else:
+            else:  # Case: breaking point is in left side
                 high = mid
         return nums[low]
 
