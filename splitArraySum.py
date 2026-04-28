@@ -1,5 +1,8 @@
 class Solution:
     def splitArray(self, nums: list[int], k: int) -> int:
+        '''Binary search on answer:
+        split array into k parts minimizing max part sum'''
+
         # Define search space
         # low = min sum to form n partitions
         # high = Exact sum to form 1 partition
