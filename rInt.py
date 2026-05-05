@@ -26,7 +26,7 @@ class Solution:
         reversed_x: int = 0
         while x:
             reversed_x = reversed_x * 10 + x % 10
-            x = x // 10
+            x //= 10
         reversed_x *= symbol
         return reversed_x if -2 ** 31 <= reversed_x <= 2 ** 31 - 1 else 0 
 
