@@ -8,17 +8,14 @@ class ListNode:
 
 class Solution:
     def _buildList(self, arr: list[int]) -> Optional[ListNode]:
-        if not arr:
-            return None
+        dummy: ListNode = ListNode()
+        current: ListNode = dummy
 
-        head: ListNode = ListNode(arr[0])
-        current: ListNode = head
-
-        for i in range(1, len(arr)):
-            next: ListNode = ListNode(arr[i])
+        for val in arr:
+            next: ListNode = ListNode(val)
             current.next = next
             current = next
-        return head
+        return dummy.next
 
     def merge(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         '''Merge two sorted linked lists by creating a new list of n + m size.'''
@@ -51,7 +48,6 @@ class Solution:
         remainingList: ListNode = list1 if not list2 else list2
         curr.next = remainingList
         return dummy.next
-
 
 
 sol = Solution()
