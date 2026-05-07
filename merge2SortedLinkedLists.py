@@ -1,22 +1,7 @@
 from typing import Optional
-
-
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+from linked_list import ListNode, buildList
 
 class Solution:
-    def _buildList(self, arr: list[int]) -> Optional[ListNode]:
-        dummy: ListNode = ListNode()
-        current: ListNode = dummy
-
-        for val in arr:
-            next: ListNode = ListNode(val)
-            current.next = next
-            current = next
-        return dummy.next
-
     def merge(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         '''Merge two sorted linked lists by creating a new list of n + m size.'''
         # Algorithmic idea:
@@ -51,4 +36,4 @@ class Solution:
 
 
 sol = Solution()
-print(sol.merge(sol._buildList([1, 2, 4]), sol._buildList([1, 3, 4])))
+print(sol.merge(buildList([1, 2, 4]), buildList([1, 3, 4])))

@@ -1,42 +1,7 @@
 from typing import Optional
-
-
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-        
-
+from linked_list import ListNode, buildList     
 
 class Solution:
-    def _buildList(self, arr: list[Optional[int]]) -> Optional[ListNode]:
-        '''Build a linked list from an array.'''
-        if not arr:
-            return None
-        # Algorithmic idea:
-        # Create a series of n-Nodes and link
-        # them through a series of implications in which
-        # Head -> Node_1 -> Node_2... -> Node_n -> None
-        head = ListNode(arr[0])  # First element becomes the head
-        current = head
-        for i in range(1, len(arr)):
-            # For every element in the array
-            # a new node is created, said node
-            # will be assigned a value arr[i]
-            # then, the past nodes .next property
-            # will start referencing the current node.
-            nextNode: ListNode = ListNode(arr[i])
-            current.next = nextNode  # Link nodes
-            current = nextNode  # Advance the chain
-
-            # This algorithm is pretty much like holding
-            # a real chain in the dark, because we are holding
-            # the last link of the chain in order to not lose
-            # it forever, then we grab a new link, attach it and
-            # hold new last link to advance and repeat the process.
-
-        return head
-
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         '''Reverse singly linked list by using two (three) pointers.'''
         # A singly linked list is a list which can only go
@@ -74,4 +39,4 @@ class Solution:
 
 
 sol = Solution()
-print(sol.reverseList(sol._buildList([1, 2, 3, 4, 5])))
+print(sol.reverseList(buildList([1, 2, 3, 4, 5])))
