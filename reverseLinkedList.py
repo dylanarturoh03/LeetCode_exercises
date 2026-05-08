@@ -1,5 +1,6 @@
 from typing import Optional
-from linkedList import ListNode, buildList     
+from linkedList import ListNode, buildList
+
 
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:

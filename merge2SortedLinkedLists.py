@@ -1,9 +1,14 @@
 from typing import Optional
 from linkedList import ListNode, buildList
 
+
 class Solution:
-    def merge(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        '''Merge two sorted linked lists by creating a new list of n + m size.'''
+    def merge(
+        self,
+        list1: Optional[ListNode],
+        list2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        '''Merge two sorted lists by creating a new list of n + m size.'''
         # Algorithmic idea:
         # Create a new list with m + n nodes.
         # Traverse both source lists and at each point compare node values
@@ -29,6 +34,27 @@ class Solution:
                 list2 = list2.next
             curr.next = next
             curr = next
+
+        remainingList: ListNode = list1 if not list2 else list2
+        curr.next = remainingList
+        return dummy.next
+
+    def merge_constSpace(
+        self,
+        list1: Optional[ListNode],
+        list2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        dummy: ListNode = ListNode()
+        curr = dummy
+
+        while list1 and list2:
+            if list1.val <= list2.val:
+                curr.next = list1
+                list1 = list1.next
+            else:
+                curr.next = list2
+                list2 = list2.next
+            curr = curr.next
 
         remainingList: ListNode = list1 if not list2 else list2
         curr.next = remainingList
