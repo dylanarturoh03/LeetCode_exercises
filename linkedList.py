@@ -7,7 +7,7 @@ class ListNode:
         self.next = next
 
 
-def buildList(arr: list[int], idx=None) -> Optional[ListNode]:
+def buildList(arr: list[int], idx: int = None) -> Optional[ListNode]:
     '''
         Build a linked list from an array and optionally
         create a cycle by attaching idx_node
