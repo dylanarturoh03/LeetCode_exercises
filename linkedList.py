@@ -49,3 +49,13 @@ def buildList(arr: list[int], idx: int = None) -> Optional[ListNode]:
     if cycleNode:
         current.next = cycleNode
     return dummy.next
+
+
+def traverseList(head: Optional[ListNode]) -> None:
+    '''Traverse a linked list while printing value flow.'''
+    curr = head
+
+    while curr:
+        print(curr.val, end=' -> ')
+        curr = curr.next
+    print(None)
