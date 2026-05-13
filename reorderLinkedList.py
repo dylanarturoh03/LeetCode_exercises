@@ -1,5 +1,5 @@
 from typing import Optional
-from linkedList import ListNode, buildList, traverseList
+from linkedList import ListNode, buildList, printList
 
 
 class Solution:
@@ -29,10 +29,10 @@ class Solution:
             curr, prev = head, None
 
             while curr:
-                next: Optional[ListNode] = curr.next
+                nxt: Optional[ListNode] = curr.next
                 curr.next = prev
                 prev = curr
-                curr = next
+                curr = nxt
             return prev
 
         # Algorithmic idea:
@@ -65,19 +65,19 @@ class Solution:
             # Due to the divide list process list 1 will always
             # have equal or fewer elements than list 2.
             while p1:
-                next: Optional[ListNode] = p1.next
+                nxt: Optional[ListNode] = p1.next
                 p1.next = p2
-                p1 = next
+                p1 = nxt
 
                 prev = p2
-                next = p2.next
+                nxt = p2.next
                 p2.next = p1
-                p2 = next
+                p2 = nxt
 
             if p2:
                 prev.next = p2
 
-        traverseList(head)
+        printList(head)
 
 
 sol = Solution()
