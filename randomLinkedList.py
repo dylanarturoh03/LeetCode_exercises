@@ -49,30 +49,22 @@ def buildRandomList(arr: list[int]) -> Optional[Node]:
         # Check if nxt node to create exists in nodes.
         if i not in nodes:
             # If not, create it and store it.
-            nxt = Node(x=arr[i])
-            nodes[i] = nxt
-        else:
-            # If yes, grab it from nodes.
-            nxt = nodes[i]
+            nodes[i] = Node(x=arr[i])
 
         idx: int = randrange(len(arr) + 1)  # Select random index from arr
         # Check if random node already exists.
         if idx not in nodes:
             # If not, then create it an store it.
-            rnd_node = Node(x=arr[idx])
-            nodes[idx] = rnd_node
-        else:
-            # If yes, just grab it.
-            rnd_node = nodes[idx]
+            nodes[idx] = Node(x=arr[idx])
 
         # Now assign nxt to curr and rnd_node to nxt.
 
         # This because curr at the start is the dummy, and
         # we don't wanna waste an rnd_node there since this
         # will cause the last node to lack it's rnd_node.
-        curr.next = nxt
-        nxt.random = rnd_node
-        curr = nxt
+        curr.next = nodes[i]
+        curr.next.random = nodes[idx]
+        curr = curr.next
         # print(curr.val, curr.random.val if curr.random else None)
     return dummy.next
 
