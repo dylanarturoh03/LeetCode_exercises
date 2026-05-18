@@ -8,6 +8,14 @@ class Solution:
         l1: Optional[ListNode],
         l2: Optional[ListNode]
     ) -> Optional[ListNode]:
+        '''
+        Return a linked list representing the sum of two numbers stored
+        in reverse order, computed digit by digit with carry propagation.
+        '''
+        # Key insight:
+        # When having a sum of two positive integers the carry will always
+        # be 0 or 1 since at most a singular addition will reach 19 with
+        # a carry and 18 without one.
         dummy = ListNode()
         curr = dummy
 
