@@ -32,9 +32,46 @@ class Solution:
             listNode = listNode.next
         return dummy.next
 
+    def crl_cSpace(self, head: Optional[Node]) -> Optional[Node]:
+        '''
+        Deep-copy of a random list by inject copies of nodes into original list
+        and then separating them.
+        '''
+        # Create copies of every node and inject them into list.
+        curr = head
 
-rndList = buildRandomList([1, 2, 3, 4, 5, 6, 7])
+        while curr:
+            copy: Node = Node(
+                x=curr.val,
+                next=curr.next,
+                random=curr.random
+            )
+            curr.next = copy
+            curr = copy.next
+
+        # Reassign random pointer of copies to the correct nodes.
+        curr = head.next if head else None
+
+        while curr:
+            curr.random = curr.random.next if curr.random else None
+            curr = curr.next.next if curr.next else None
+
+        # Separate lists.
+        curr = head
+        new_head = curr.next if curr else None
+
+        while curr:
+            copy = curr.next
+            nxt = copy.next
+            curr.next = nxt
+            copy.next = nxt.next if nxt else None
+            curr = curr.next
+        return new_head
+
+
+rndList = buildRandomList([1, 2, 3])
 printRandomList(rndList)
 
 sol = Solution()
-printRandomList(sol.copyRandomList(rndList))
+# printRandomList(sol.copyRandomList(rndList))
+printRandomList(sol.crl_cSpace(rndList))
