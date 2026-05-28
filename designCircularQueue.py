@@ -36,7 +36,7 @@ class MyCircularQueue:
         old_head = self.dummy.next
         new_head = old_head.next if old_head != old_head.next else None
 
-        if not new_head:    
+        if not new_head:
             # Revert back to original empty state.
             self.tail = self.dummy
         else:

@@ -2,10 +2,22 @@ from typing import Optional
 
 
 class ListNode:
-    '''Create a regular linked list node'''
+    '''Create a singly linked list node'''
     def __init__(self, val: int = 0, next: Optional['ListNode'] = None):
         self.val = val
         self.next = next
+
+
+class DoublyListNode:
+    '''Create a doubly linked list node'''
+    def __init__(
+        self, val: int = 0,
+        next: Optional['DoublyListNode'] = None,
+        prev: Optional['DoublyListNode'] = None
+    ):
+        self.val = val
+        self.next = next
+        self.prev = prev
 
 
 def buildList(arr: list[int], idx: int = None) -> Optional[ListNode]:
