@@ -22,7 +22,7 @@ class LFUCache:
         self.cap: int = capacity
         self.k: int = 0
         self.cache: dict[int, LFUNode] = {}
-        self.freqs: dict[int, Optional[LFUNode]] = {}
+        self.freqs: dict[int, LFUNode] = {}
         self.dummy: LFUNode = LFUNode()
 
     def get(self, key: int) -> int:
