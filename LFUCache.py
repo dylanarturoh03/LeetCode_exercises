@@ -26,6 +26,7 @@ class LFUCache:
         self.dummy: LFUNode = LFUNode()
 
     def get(self, key: int) -> int:
+        '''Get value from node with a given key.'''
         if key not in self.cache:
             return -1
 
@@ -35,6 +36,7 @@ class LFUCache:
         return node.val
 
     def put(self, key: int, value: int) -> None:
+        '''Insert of modify a node with a given key -> value pair.'''
         if key in self.cache:
             # Update node
             node = self.cache[key]
@@ -49,29 +51,37 @@ class LFUCache:
 
             node = LFUNode(key=key, val=value, freq=1)
             self.cache[key] = node
+
             # Create new node
-            # Either insert after MRU of freq[1]
-            if 1 not in self.freqs:
-                nxtNode = self.dummy.nxt
-                self.dummy.nxt = node
-                node.nxt = nxtNode
-                node.prev = self.dummy
-
-                if nxtNode:
-                    nxtNode.prev = node
-            else:  # or after dummmy
-                MRUNode = self.freqs[1]
-                nxtNode = MRUNode.nxt
-                MRUNode.nxt = node
-                node.nxt = nxtNode
-                node.prev = MRUNode
-
-                if nxtNode:
-                    nxtNode.prev = node
+            # Either insert after MRU of freq 1 or dummy node
+            anchor = self.freqs.get(1, self.dummy)
+            self._insert_after(anchor, node)
             self.freqs[1] = node
 
+    def _insert_after(self, anchor: LFUNode, node: LFUNode) -> None:
+        '''Insert a given node after a given anchor node.'''
+        nxtNode = anchor.nxt
+        anchor.nxt = node
+        node.nxt = nxtNode
+        node.prev = anchor
+
+        if nxtNode:
+            nxtNode.prev = node
+
+    def _extract(self, node: LFUNode) -> None:
+        '''Extract a given node from linked list.'''
+        node.prev.nxt = node.nxt
+        if node.nxt:
+            node.nxt.prev = node.prev
+        node.prev = node.nxt = None
+
     def _rellocateNode(self, node: LFUNode) -> None:
+        '''
+            Given a node update it's frequency by one and adjust
+            position within list if needed,
+        '''
         def _updateFreqs() -> None:
+            '''Update MRU of node.freq if needed.'''
             if self.freqs[node.freq] == node:
                 if node.prev.freq == node.freq:
                     self.freqs[node.freq] = node.prev
@@ -89,47 +99,25 @@ class LFUCache:
                 self.freqs[node.freq - 1]
                 if node.freq - 1 in self.freqs else None
             )
-
+            # Anchor it after node's freq - 1 MRU if needed.
             if lFNode and lFNode.nxt != node:
-                node.prev.nxt = node.nxt
-                if node.nxt:
-                    node.nxt.prev = node.prev
-                node.prev = node.nxt = None
-
-                lfNode_nxt = lFNode.nxt
-                lFNode.nxt = node
-                node.nxt = lfNode_nxt
-                node.prev = lFNode
-
-                if lfNode_nxt:
-                    lfNode_nxt.prev = node
+                self._extract(node)
+                self._insert_after(lFNode, node)
 
         else:
+            # Anchor node after MRU of it's curent new freq
             lFNode = self.freqs[node.freq]
             self.freqs[node.freq] = node
 
-            node.prev.nxt = node.nxt
-            node.nxt.prev = node.prev
-            node.prev = node.nxt = None
-
-            lfNode_nxt = lFNode.nxt
-            lFNode.nxt = node
-            node.nxt = lfNode_nxt
-            node.prev = lFNode
-
-            if lfNode_nxt:
-                lfNode_nxt.prev = node
+            self._extract(node)
+            self._insert_after(lFNode, node)
 
     def _evict(self) -> None:
+        '''Extract head of list and evict it from all structures.'''
         # Delete LRU node within the LFU freq.
         # That node is the head / dummy.next
         evictNode = self.dummy.nxt
-
-        self.dummy.nxt = evictNode.nxt
-
-        if self.dummy.nxt:
-            self.dummy.nxt.prev = self.dummy
-        evictNode.nxt = evictNode.prev = None
+        self._extract(evictNode)
 
         del self.cache[evictNode.key]
 
