@@ -31,6 +31,6 @@ def printBT(root: Optional[TreeNode]) -> None:
     if root is None:
         return
 
-    print(root.val)
     printBT(root.left)
+    print(root.val, end=' ')
     printBT(root.right)
