@@ -10,7 +10,7 @@ class Solution:
 
         # Iterate backwards through the longer string
         for i in range(len(a) - 1, -1, -1):
-            # Calculate the matching indes for b, the shoter string
+            # Calculate the matching index for b, the shorter string
             j = i - diff
 
             # Get corresponding char for both strings
