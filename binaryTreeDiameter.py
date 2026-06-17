@@ -43,7 +43,30 @@ class Solution:
             curr = curr.right
         return diameter
 
+    def diameterBT_canonical(self, root: Optional[TreeNode]) -> int:
+        '''
+            Calculate diameter of a given BT by
+            calculating the height of all subtrees and
+            at the same time using that data to get the
+            longest path that passes through each node.
+
+            Update diameter as you find a longer path.
+        '''
+        def dfs(node: Optional[TreeNode]) -> int:
+            if node is None:
+                return 0
+
+            nonlocal diameter
+            lh, rh = dfs(node.left), dfs(node.right)
+            diameter = max(lh + rh, diameter)
+            return 1 + max(lh, rh)
+
+        diameter: int = 0
+        dfs(root)
+        return diameter
+
 
 bt = buildBT([1, 2, 3, 4, 5, 6, 7])
 sol = Solution()
 print(sol.diameterOfBinaryTree(bt))
+print(sol.diameterBT_canonical(bt))
