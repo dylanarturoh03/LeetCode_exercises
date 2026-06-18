@@ -13,7 +13,7 @@ class Solution:
             # If both were able to traverse the whole path
             if pN is None and qN is None:
                 return True
-            # If either structure or values differe
+            # If either structure or values differ
             if pN is None or qN is None or pN.val != qN.val:
                 return False
             return dfs(pN.left, qN.left) and dfs(pN.right, qN.right)
