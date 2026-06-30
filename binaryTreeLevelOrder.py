@@ -1,35 +1,32 @@
 from typing import Optional
+from collections import deque
 from trees import TreeNode, buildBT
-from queue import Queue
 
 
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> list[list[int]]:
-        '''
-            Traverse given BT with a breath first search algorithm.
-            While you process nodes you add it's children to the queue
-            along with their depth.
-        '''
+        """
+        Perform a breadth-first traversal of the tree,
+        processing one level at a time.
+        """
         if root is None:
             return []
 
-        q = Queue()
+        q = deque([root])
         res = []
-        q.put((root, 1))
 
-        while not q.empty():
-            # Dequeue node at front
-            curr, level = q.get()
-            if len(res) < level:
-                # Create new nested list for current level
-                res.append([])
-            # Add curent's nodes value to latest sublist
-            res[-1].append(curr.val)
-            # Add children along with their level
-            if curr.left:
-                q.put((curr.left, level + 1))
-            if curr.right:
-                q.put((curr.right, level + 1))
+        while q:
+            level = []
+            for _ in range(len(q)):
+                curr = q.popleft()
+                level.append(curr.val)
+
+                if curr.left:
+                    q.append(curr.left)
+
+                if curr.right:
+                    q.append(curr.right)
+            res.append(level)
         return res
 
 
