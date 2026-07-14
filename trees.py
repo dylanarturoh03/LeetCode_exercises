@@ -13,6 +13,25 @@ class TreeNode:
         self.right = right
 
 
+# Definition of a QuadTree node.
+class Node:
+    def __init__(
+        self,
+        val: int,
+        isLeaf: int,
+        topLeft: Optional['Node'] = None,
+        topRight: Optional['Node'] = None,
+        bottomLeft: Optional['Node'] = None,
+        bottomRight: Optional['Node'] = None
+    ) -> None:
+        self.val = val
+        self.isLeaf = isLeaf
+        self.topLeft = topLeft
+        self.topRight = topRight
+        self.bottomLeft = bottomLeft
+        self.bottomRight = bottomRight
+
+
 def buildBT(arr: list[int]) -> Optional[TreeNode]:
     '''Build binary tree from a given array.'''
     def helper(idx: int) -> Optional[TreeNode]:
