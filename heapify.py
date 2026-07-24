@@ -4,7 +4,9 @@ from trees import TreeNode, buildBT, printBT
 
 class Solution:
     def max_heapify(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        '''Max heapify a given complete binary tree.'''
         def sift_down(node: Optional[TreeNode]) -> None:
+            '''Bubbles down the current value to it's correct position'''
             largest = node
             if node.left and node.left.val > largest.val:
                 largest = node.left
@@ -20,15 +22,20 @@ class Solution:
             if node is None:
                 return None
 
+            # Heapify subtrees
             dfs(node.left)
             dfs(node.right)
+
+            # Heapify current subtree
             sift_down(node)
 
         dfs(root)
         return root
 
     def min_heapify(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        '''Min heapify a given complete binary tree.'''
         def sift_down(node: TreeNode) -> None:
+            '''Bubbles down the current value to it's correct position'''
             smallest = node
             if node.left and node.left.val < smallest.val:
                 smallest = node.left
@@ -44,8 +51,11 @@ class Solution:
             if node is None:
                 return None
 
+            # Heapify subtrees
             dfs(node.left)
             dfs(node.right)
+
+            # Heapify current subtree
             sift_down(node)
 
         dfs(root)
