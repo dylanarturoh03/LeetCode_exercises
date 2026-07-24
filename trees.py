@@ -46,10 +46,15 @@ def buildBT(arr: list[int]) -> Optional[TreeNode]:
     return helper(0)
 
 
-def printBT(root: Optional[TreeNode]) -> None:
-    if root is None:
-        return
+def printBT(root: Optional[TreeNode], end='\n') -> None:
+    '''Print a given BT in preorder.'''
+    def dfs(node: Optional[TreeNode]) -> None:
+        if node is None:
+            return
 
-    printBT(root.left)
-    print(root.val, end=' ')
-    printBT(root.right)
+        print(node.val, end=' ')
+        dfs(node.left)
+        dfs(node.right)
+
+    dfs(root)
+    print(end=end)
